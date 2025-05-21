@@ -108,6 +108,22 @@ int main()
 		TF<<CPUCycle<<" "<<std::hex<<Address<<" "<<std::dec<<RW<<endl;
 	}/*end for loop*/
 	cout<<"\nL: hit "<<L.get_hit()<<" miss "<<L.get_miss();
+	int totalAccesses = L.get_hit() + L.get_miss();
+	double hitRate = (double)L.get_hit() / totalAccesses;
+	double missRate = (double)L.get_miss() / totalAccesses;
+	const int HIT_TIME = 2;       // In cycles
+	const int MISS_PENALTY = 400; // In cycles
+	double amat = hitRate * HIT_TIME + missRate * MISS_PENALTY;
+	double latencyReduction = ((400.0 - amat) / 400.0) * 100.0;
+	cout << "\n================ Cache Simulation Results ================\n";
+	cout << "Total Accesses     : " << totalAccesses << endl;
+	cout << "Cache Hits         : " << L.get_hit() << endl;
+	cout << "Cache Misses       : " << L.get_miss() << endl;
+	cout << "Hit Rate           : " << hitRate * 100 << " %" << endl;
+	cout << "Miss Rate          : " << missRate * 100 << " %" << endl;
+	cout << "AMAT               : " << amat << " cycles" << endl;
+	cout << "Latency Reduction  : " << latencyReduction << " %" << endl;
+	cout << "==========================================================\n";
 	cout<<"\n\nMy work is done\n\n";
 	return 0;
 }
